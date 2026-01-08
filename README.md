@@ -26,7 +26,7 @@ But if I generate the files beforehand:
 ./generate_requirements.sh
 ```
 
-And then build the Docker target that uses the pre-generated `requirements.txt`:
+And then uncomment the last targets in `BUILD` to build the Docker target that uses the pre-generated `requirements.txt`:
 
 ```bash
 PANTS_DOCKER_BUILD_NO_CACHE=True pants --no-pantsd package :hello-world-app-requirements-already-generated

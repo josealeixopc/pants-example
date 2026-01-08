@@ -3,11 +3,6 @@ file(
     source="app.py",
 )
 
-file(
-    name="requirements",
-    source="requirements.txt",
-)
-
 shell_source(
     name="generate_requirements_script",
     source="generate_requirements.sh",
@@ -29,11 +24,16 @@ docker_image(
     ],
 )
 
-docker_image(
-    name="hello-world-app-requirements-already-generated",
-    repository="hello-world",
-    dependencies=[
-        ":app",
-        ":requirements",
-    ],
-)
+# file(
+#     name="requirements",
+#     source="requirements.txt",
+# )
+
+# docker_image(
+#     name="hello-world-app-requirements-already-generated",
+#     repository="hello-world",
+#     dependencies=[
+#         ":app",
+#         ":requirements",
+#     ],
+# )
