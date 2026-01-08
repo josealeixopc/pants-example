@@ -1,0 +1,11 @@
+[GLOBAL]
+backend_packages = [
+    "pants.backend.docker",
+    "pants.backend.experimental.docker.lint.trivy",
+    "pants.backend.shell",
+]
+pants_version = "2.30.0"
+pants_ignore = [
+    # Force-include gitignored generated files we need for builds
+    "!requirements.txt",
+]
