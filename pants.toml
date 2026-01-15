@@ -3,7 +3,7 @@ backend_packages = [
     "pants.backend.docker",
     "pants.backend.experimental.docker.lint.trivy",
     "pants.backend.shell",
-    "jose.package_v2_shell_command",
+    "jose.materialize_shell_command",
 ]
 pants_version = "2.30.0"
 pants_ignore = [

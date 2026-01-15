@@ -1,4 +1,4 @@
-"""Rules for package_v2_shell_command."""
+"""Rules for materialize_shell_command."""
 
 import logging
 import os
@@ -14,15 +14,15 @@ from pants.engine.rules import Get, collect_rules, goal_rule
 from pants.engine.target import Targets
 
 from .target_types import (
-    PackageV2ShellCommand,
-    PackageV2ShellCommandCommandField,
-    PackageV2ShellCommandExecutionDependenciesField,
-    PackageV2ShellCommandExtraEnvVarsField,
-    PackageV2ShellCommandLogOutputField,
-    PackageV2ShellCommandOutputDirectoriesField,
-    PackageV2ShellCommandOutputFilesField,
-    PackageV2ShellCommandTimeoutField,
-    PackageV2ShellCommandToolsField,
+    MaterializeShellCommand,
+    MaterializeShellCommandCommandField,
+    MaterializeShellCommandExecutionDependenciesField,
+    MaterializeShellCommandExtraEnvVarsField,
+    MaterializeShellCommandLogOutputField,
+    MaterializeShellCommandOutputDirectoriesField,
+    MaterializeShellCommandOutputFilesField,
+    MaterializeShellCommandTimeoutField,
+    MaterializeShellCommandToolsField,
 )
 
 logger = logging.getLogger(__name__)
@@ -32,7 +32,7 @@ class MaterializeSubsystem(GoalSubsystem):
     """Materialize generated files to the workspace."""
 
     name = "materialize"
-    help = "Run package_v2_shell_command targets to generate files directly in the workspace."
+    help = "Run materialize_shell_command targets to generate files directly in the workspace."
 
 
 class Materialize(Goal):
@@ -49,29 +49,29 @@ async def materialize_workspace_files(
     bash: BashBinary,
     workspace: Workspace,
 ) -> Materialize:
-    """Materialize files from package_v2_shell_command targets to workspace."""
+    """Materialize files from materialize_shell_command targets to workspace."""
 
-    # Filter for package_v2_shell_command targets
-    package_v2_targets = [
-        tgt for tgt in targets if tgt.has_field(PackageV2ShellCommandCommandField)
+    # Filter for materialize_shell_command targets
+    materialize_targets = [
+        tgt for tgt in targets if tgt.has_field(MaterializeShellCommandCommandField)
     ]
 
-    if not package_v2_targets:
-        console.print_stderr("No package_v2_shell_command targets found.")
+    if not materialize_targets:
+        console.print_stderr("No materialize_shell_command targets found.")
         return Materialize(exit_code=0)
 
-    console.print_stdout(f"Materializing {len(package_v2_targets)} target(s)...")
+    console.print_stdout(f"Materializing {len(materialize_targets)} target(s)...")
 
-    for target in package_v2_targets:
+    for target in materialize_targets:
         # Access fields directly from target
-        command_field = target[PackageV2ShellCommandCommandField]
-        execution_deps_field = target[PackageV2ShellCommandExecutionDependenciesField]
-        output_files_field = target[PackageV2ShellCommandOutputFilesField]
-        output_dirs_field = target[PackageV2ShellCommandOutputDirectoriesField]
-        timeout_field = target[PackageV2ShellCommandTimeoutField]
-        tools_field = target[PackageV2ShellCommandToolsField]
-        extra_env_vars_field = target[PackageV2ShellCommandExtraEnvVarsField]
-        log_output_field = target[PackageV2ShellCommandLogOutputField]
+        command_field = target[MaterializeShellCommandCommandField]
+        execution_deps_field = target[MaterializeShellCommandExecutionDependenciesField]
+        output_files_field = target[MaterializeShellCommandOutputFilesField]
+        output_dirs_field = target[MaterializeShellCommandOutputDirectoriesField]
+        timeout_field = target[MaterializeShellCommandTimeoutField]
+        tools_field = target[MaterializeShellCommandToolsField]
+        extra_env_vars_field = target[MaterializeShellCommandExtraEnvVarsField]
+        log_output_field = target[MaterializeShellCommandLogOutputField]
 
         # Get environment variables
         extra_env_vars = extra_env_vars_field.value or ()
@@ -131,10 +131,10 @@ async def materialize_workspace_files(
                 dir_path = os.path.join(target_dir, output_dir) if target_dir else output_dir
                 console.print_stdout(f"  Generated directory: {dir_path}")
 
-    console.print_stdout(f"✓ Successfully materialized {len(package_v2_targets)} target(s)")
+    console.print_stdout(f"✓ Successfully materialized {len(materialize_targets)} target(s)")
     return Materialize(exit_code=0)
 
 
 def rules():
-    """Return all rules for package_v2_shell_command."""
+    """Return all rules for materialize_shell_command."""
     return collect_rules()

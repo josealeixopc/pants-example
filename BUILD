@@ -8,7 +8,7 @@ shell_source(
     source="generate_requirements.sh",
 )
 
-package_v2_shell_command(
+materialize_shell_command(
     name="generate-requirements-v2",
     command="./generate_requirements.sh",
     output_files=["requirements.txt"],
