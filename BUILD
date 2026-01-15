@@ -8,10 +8,9 @@ shell_source(
     source="generate_requirements.sh",
 )
 
-package_shell_command(
-    name="generate-requirements",
+package_v2_shell_command(
+    name="generate-requirements-v2",
     command="./generate_requirements.sh",
-    execution_dependencies=[":generate_requirements_script"],
     output_files=["requirements.txt"],
 )
 
@@ -20,7 +19,7 @@ docker_image(
     repository="hello-world",
     dependencies=[
         ":app",
-        ":generate-requirements",
+        ":generate-requirements-v2",
     ],
 )
 
